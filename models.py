@@ -1,5 +1,6 @@
 from enum import Enum
 from time import time
+from collections import deque
 import json
 
 class Side(Enum):
@@ -74,7 +75,7 @@ class OrderBucket:
     BUY@100: me: 200, you: 300
     """
     def __init__(self, order):
-        self.orders = [order]
+        self.orders = deque([order]) # use a deque, because we are always removing at the start.
         self.price = order.price
         self.side = order.side
         self.next = None
@@ -110,14 +111,14 @@ class OrderBook:
     def fillBucket(order, bucket):
         trades = []
         while bucket:
-            head, *rest = bucket.orders
+            head = bucket.orders[0]
             trade = Trade.create(order, head)
             if not trade:
                 break
 
             # if we filled that order we remove it
             if head.unfilled() == 0:
-                bucket.orders.pop(0)
+                bucket.orders.popleft()
 
             if not bucket.orders:
                 bucket = bucket.next
@@ -128,11 +129,11 @@ class OrderBook:
         if order.side == Side.BUY:
             trades = OrderBook.fillBucket(order, self.sell)
             # remove the empty buckets
-            while self.sell and self.sell.orders == []:
+            while self.sell and not self.sell.orders:
                 self.sell = self.sell.next 
         else:
             trades = OrderBook.fillBucket(order, self.buy)
-            while self.buy and self.buy.orders == []:
+            while self.buy and not self.buy.orders:
                 self.buy = self.buy.next 
         
         return trades

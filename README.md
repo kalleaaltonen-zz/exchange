@@ -25,6 +25,19 @@ And start the server:
 flask run
 ```
 
+Unit tests:
+
+```
+pytest
+```
+
+Stress test:
+
+```
+python stress.py
+
+
+
 Features
 --------
 
