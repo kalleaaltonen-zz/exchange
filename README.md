@@ -13,6 +13,12 @@ To install the dependencies:
 pipenv install --dev
 ```
 
+Active the environment:
+
+```
+pipenv shell
+```
+
 And start the server:
 
 ```
