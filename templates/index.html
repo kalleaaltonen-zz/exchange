@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Hello {{ session['username'] }} </h1>
+
+<h2>New order</h2>
+
+<form action="/createOrder" method="POST">
+    <label for="price">Price</label>
+    <input type="text" name="price"/><br>
+    <label for="quantity">Quantity</label>
+    <input type="text" name="quantity"/><br>
+    
+    <input type="radio" checked="checked" name="order_type" value="buy">
+    <label for="buy">Buy</label><br>
+    
+    <input type="radio" name="order_type" value="sell">
+    <label for="sell">Sell</label><br>
+
+    <input type="submit" value="create" />
+</form>
+<iframe width="500px" height="500px" src="orderbook"/>
+{% endblock %}

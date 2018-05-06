@@ -1,0 +1,60 @@
+<head>
+    <meta http-equiv="refresh" content="2">
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Bid: {{orderbook.bid}}</th>
+            <th>Ask: {{orderbook.ask}}</th>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                    {% for item in orderbook.buys %}
+                    <tr>
+                        <td>{{item.price}}</td>
+                        <td>{{item.total}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>            
+            <td>
+                <table>
+                    <tr>
+                        <th>Total</th>
+                        <th>Price</th>
+                    </tr>
+                    {% for item in orderbook.sells %}
+                    <tr>
+                        <td>{{item.total}}</td>
+                        <td>{{item.price}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>
+
+        </tr>
+    </table>
+
+    <h2>Trades</h2>
+    <table>
+        <tr>
+            <th>Seller</th>
+            <th>Buyer</th>
+            <th>Amount</th>
+            <th>Price</th>
+        </tr>
+        {% for item in trades %}
+        <tr>
+            <td>{{item.seller}}</td>
+            <td>{{item.buyer}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.price}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
